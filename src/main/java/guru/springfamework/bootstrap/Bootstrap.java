@@ -1,0 +1,50 @@
+package guru.springfamework.bootstrap;
+
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
+import guru.springfamework.domain.Category;
+import guru.springfamework.repositories.CategoryRepository;
+
+//Spring Boot specific class, only works with it
+@Component
+public class Bootstrap implements CommandLineRunner
+{
+	private CategoryRepository categoryRepository;
+
+	public Bootstrap( CategoryRepository categoryRepository )
+	{
+		super();
+		this.categoryRepository = categoryRepository;
+	}
+
+	//call at startup Spring Boot, the argument are the parameters pass to JVM
+	@Override
+	public void run( String... args ) throws Exception
+	{
+        Category fruits = new Category();
+        fruits.setName( "Fruits" );
+
+        Category dried = new Category();
+        dried.setName( "Dried" );
+
+        Category fresh = new Category();
+        fresh.setName( "Fresh" );
+
+        Category exotic = new Category();
+        exotic.setName( "Exotic" );
+
+        Category nuts = new Category();
+        nuts.setName( "Nuts" );
+
+        categoryRepository.save( fruits );
+        categoryRepository.save( dried );
+        categoryRepository.save( fresh );
+        categoryRepository.save( exotic );
+        categoryRepository.save( nuts );
+
+
+        System.out.println( "Data Loaded = " + categoryRepository.count() );
+		
+	}
+}
