@@ -1,20 +1,25 @@
 package guru.springfamework.controllers.v1;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import guru.springfamework.api.v1.model.CategoryDTO;
 import guru.springfamework.api.v1.model.CategoryListDTO;
 import guru.springfamework.services.CategoryService;
 
-@Controller
-@RequestMapping( "/api/v1/categories/" )
+//@RestController returns a ResponseBody, combines @Controller and @ResponseBody
+//when we were using @Controller we force to return ResponseEntity 
+//(quite similar to ResponseBody) but ResponseBody gives us more control
+@RestController
+@RequestMapping( CategoryController.BASE_API_URL )
 public class CategoryController
 {
+	public static final String BASE_API_URL = "/api/v1/categories"; 
+	
 	private final CategoryService categoryService;
 	
 	public CategoryController( CategoryService categoryService )
@@ -22,18 +27,19 @@ public class CategoryController
 		this.categoryService = categoryService; 
 	}
 
+	//now Springs binds the return object to ResponseBody for us
+	//we set up the status we want to return by the new annotation @ResponseStatus
 	@GetMapping
-	public ResponseEntity<CategoryListDTO> getAllCategories()
+	@ResponseStatus( HttpStatus.OK )
+	public CategoryListDTO getAllCategories()
 	{
-		return new ResponseEntity<CategoryListDTO>( 
-				new CategoryListDTO( categoryService.getAllCategories() ), 
-				HttpStatus.OK );
+		return new CategoryListDTO( categoryService.getAllCategories() ); 
 	}
 	
-	@GetMapping( "{name}" )
-	public ResponseEntity<CategoryDTO> getCategoryByName( @PathVariable String name )
+	@GetMapping( "/{name}" )
+	@ResponseStatus( HttpStatus.OK )
+	public CategoryDTO getCategoryByName( @PathVariable String name )
 	{
-		return new ResponseEntity<CategoryDTO>( 
-				categoryService.getCategoryByName( name ), HttpStatus.OK );
+		return categoryService.getCategoryByName( name );
 	}
 }

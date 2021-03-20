@@ -12,7 +12,12 @@ public interface CustomerMapper
 {
 	CustomerMapper INSTANCE = Mappers.getMapper( CustomerMapper.class );
 	
+	@Mapping( target = "customer_url", ignore = true )
 	@Mapping( source = "firstName", target = "firstname" )
 	@Mapping( source = "lastName", target = "lastname" )
 	CustomerDTO customerToCustomerDTO( Customer customer );
+	
+	@Mapping( source = "firstname", target = "firstName" )
+	@Mapping( source = "lastname", target = "lastName" )
+	Customer customerDtoToCustomer( CustomerDTO customerDTO );
 }
