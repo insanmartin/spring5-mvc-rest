@@ -94,7 +94,7 @@ public class CustomerServiceImpl implements CustomerService
 	
 	private String getCustomerUrl( Long id )
 	{
-		return CustomerDTO.BASE_CUSTOMER_URL_V1 + id;
+		return CustomerDTO.BASE_CUSTOMER_SHOP_URL_V1 + id;
 	}
 	
 	@Override

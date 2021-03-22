@@ -89,14 +89,14 @@ public class CustomerServiceTest
         savedCustomer.setLastName( customerDTO.getLastname() );
         savedCustomer.setId( 1L );
 
-        when(customerRepository.save( ArgumentMatchers.any( Customer.class ) ) ).thenReturn( savedCustomer );
+        when( customerRepository.save( ArgumentMatchers.any( Customer.class ) ) ).thenReturn( savedCustomer );
 
         //when
         CustomerDTO savedDto = customerService.createNewCustomer( customerDTO );
 
         //then
         assertEquals( customerDTO.getFirstname(), savedDto.getFirstname() );
-        assertEquals( CustomerDTO.BASE_CUSTOMER_URL_V1 + "1", savedDto.getCustomer_url() );
+        assertEquals( CustomerDTO.BASE_CUSTOMER_SHOP_URL_V1 + "1", savedDto.getCustomer_url() );
     }
 
     @Test
@@ -118,7 +118,7 @@ public class CustomerServiceTest
 
         //then
         assertEquals( customerDTO.getFirstname(), savedDto.getFirstname() );
-        assertEquals( CustomerDTO.BASE_CUSTOMER_URL_V1 + "1", savedDto.getCustomer_url() );
+        assertEquals( CustomerDTO.BASE_CUSTOMER_SHOP_URL_V1 + "1", savedDto.getCustomer_url() );
     }
     
     @Test
