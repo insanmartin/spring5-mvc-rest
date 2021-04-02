@@ -37,6 +37,8 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
+      # to get the generate jar of the module rest-model needed by the app module?
+      #- run: mvn install -Dskiptests
       # run tests! and gen code coverage
       - run: mvn integration-test cobertura:cobertura
 
