@@ -59,16 +59,6 @@ public class CustomerController
 	@ResponseStatus( HttpStatus.CREATED )
 	public CustomerDTO createNewCustomer( @RequestBody CustomerDTO customerDTO )
 	{
-/*		
-		System.out.println( customerService.getClass().getName() );
-		System.out.println( customerDTO.getClass().getName() );
-		CustomerDTO c = customerService.createNewCustomer( customerDTO );
-		if( c != null )
-			System.out.println( c.getFirstname() );
-		else
-			System.out.println( "XXeeeeeeeh" );
-		return c;
-*/		
 		return customerService.createNewCustomer( customerDTO );
 	}
 	
