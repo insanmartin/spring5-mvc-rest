@@ -30,6 +30,8 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
+       # to generate the module rest-model jar needed by the app module, prevents next step to fail
+      - run: mvn install -Dskiptests
       - run: mvn dependency:go-offline
 
       - save_cache:
@@ -37,8 +39,6 @@ jobs:
             - ~/.m2
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
-      # to get the generate jar of the module rest-model needed by the app module?
-      - run: mvn install -Dskiptests
       # run tests! and gen code coverage
       - run: mvn integration-test cobertura:cobertura
 
